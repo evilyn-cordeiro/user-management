@@ -1,8 +1,25 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import ProtectedRoute from "./context/protectedRoute.context";
 import LoginPage from "./pages/Login/login.page";
 import UsersPage from "./pages/Users/users.page";
 import UserForm from "./pages/UserForm/userForm.page";
+
+function UserFormWrapper({ edit = false }: { edit?: boolean }) {
+  const navigate = useNavigate();
+
+  return (
+    <UserForm
+      onSuccess={() => navigate("/users")}
+      onCancel={() => navigate("/users")}
+    />
+  );
+}
 
 export default function App() {
   return (
@@ -23,7 +40,7 @@ export default function App() {
           path="/users/new"
           element={
             <ProtectedRoute>
-              <UserForm onSuccess={() => {}} />
+              <UserFormWrapper />
             </ProtectedRoute>
           }
         />
@@ -32,11 +49,7 @@ export default function App() {
           path="/users/:id/edit"
           element={
             <ProtectedRoute>
-              <UserForm
-                onSuccess={function (): void {
-                  throw new Error("Function not implemented.");
-                }}
-              />
+              <UserFormWrapper edit />
             </ProtectedRoute>
           }
         />

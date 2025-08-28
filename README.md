@@ -8,21 +8,18 @@ Este projeto é uma aplicação full stack desenvolvida com React + TypeScript n
 - CRUD de Usuários: Criação, listagem, edição e exclusão de usuários
 - Proteção de rotas privadas
 - Middleware de autenticação no backend
-- Validação de Dados
-- Validação de formulários no frontend
 - Testes Unitários
 - Validação de dados de entrada no backend
 - Interface Responsiva
-- Design limpo e intuitivo com Material UI
-- Estilização com Styled Components
 
 ## Tecnologias Utilizadas
 
 - **Frontend**: React Typescript
 - **Backend**: Node JS
 - **Testes Back-end**: Jest
-- **Banco de Dados**: PostgreSQL
-- **Estilização**: Styled Component
+- **Protótipo**: Figma
+- **Banco de Dados**: banco fake em node.
+- **Estilização**: estilo usado com base nos componentes e padrões do Material UI
 - **Lib de Componentes**: Material UI
 - **Ferramentas de Build**: vercel (Front-end)
 
@@ -42,7 +39,8 @@ Este projeto segue a convenção de commits semânticos (Conventional Commits). 
 
 - [SPS Group - User Management](https://www.figma.com/design/ShgYKbYSNpeU5t9iLZ1eBo/SPS-Group---User-Management?node-id=0-1&t=ul7UIYHyJEI2D2JY-1)
 
-## Ajuda para rodar o projeto
+## Ajuda para rodar o projeto e outras documentações
 
 - [README Front-end](https://github.com/evilyn-cordeiro/user-management/blob/master/frontend/README.md)
 - [README Back-end](https://github.com/evilyn-cordeiro/user-management/blob/master/backend/README.md)
+- [Material UI Documentation](https://mui.com/material-ui/getting-started/)

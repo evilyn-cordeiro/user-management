@@ -7,12 +7,13 @@ import {
   Menu,
   MenuItem,
 } from "@mui/material";
-import Logo from "../Logo/logo";
 import { LogoutOutlined } from "@mui/icons-material";
+import MenuIcon from "@mui/icons-material/Menu";
 
 interface HeaderProps {
   userName: string;
   onLogout: () => void;
+  onOpenMenu?: () => void;
 }
 
 const getInitials = (name: string) => {
@@ -23,7 +24,11 @@ const getInitials = (name: string) => {
   return initials.toUpperCase();
 };
 
-export default function Header({ userName, onLogout }: HeaderProps) {
+export default function Header({
+  userName,
+  onLogout,
+  onOpenMenu,
+}: HeaderProps) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -44,38 +49,50 @@ export default function Header({ userName, onLogout }: HeaderProps) {
       display="flex"
       justifyContent="space-between"
       alignItems="center"
-      width="100%"
       py={2}
       px={{ xs: 2, sm: 3 }}
-      height={75}
-      bgcolor="primary.main"
-      color="white"
-      flexWrap="wrap"
+      height={{ xs: "auto", sm: 72 }}
+      bgcolor="#ffffff"
+      position="sticky"
+      top={0}
+      zIndex={1100}
+      sx={{
+        boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
+      }}
     >
-      <Box display="flex" alignItems="center" gap={2}>
-        <Box
-          sx={{
-            width: { xs: "30px", sm: "40px" },
-            height: { xs: "30px", sm: "40px" },
-          }}
-        >
-          <Logo />
-        </Box>
-      </Box>
-      <Box display={"flex"} gap={1} alignItems="center">
+      {/* Left side: Menu button (mobile) + Title */}
+      <Box display="flex" alignItems="center" gap={1}>
+        {onOpenMenu && (
+          <IconButton
+            onClick={onOpenMenu}
+            color="inherit"
+            sx={{ display: { xs: "inline-flex", md: "none" } }}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
+
         <Typography
           variant="h6"
-          color="inherit"
-          sx={{ display: { xs: "none", sm: "block" } }}
+          fontWeight="bold"
+          color="#050A24"
+          noWrap
+          sx={{ fontSize: { xs: "1.1rem", sm: "1.3rem" } }}
         >
-          {userName}
+          User Management
         </Typography>
+      </Box>
+
+      {/* Right side: User avatar and menu */}
+      <Box display="flex" alignItems="center" gap={1}>
         <IconButton onClick={handleMenuOpen} color="inherit">
           <Avatar
             sx={{
               width: { xs: 32, sm: 40 },
               height: { xs: 32, sm: 40 },
               fontSize: { xs: "0.8rem", sm: "1.2rem" },
+              bgcolor: "#1570EF",
+              color: "white",
             }}
           >
             {getInitials(userName)}

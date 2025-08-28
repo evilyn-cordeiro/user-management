@@ -8,11 +8,14 @@ import {
   TextField,
   MenuItem,
   Typography,
+  DialogActions,
+  IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
 import { userService } from "../../services/users.service";
 import UserForm from "../UserForm/userForm.page";
-import { Header, UserTable } from "../../components";
+import { Header, Navbar, UserTable } from "../../components";
 
 interface User {
   id: number;
@@ -28,6 +31,7 @@ export default function UsersPage() {
   const [openForm, setOpenForm] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
   const [filterType, setFilterType] = useState<string>("all");
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -68,32 +72,20 @@ export default function UsersPage() {
           window.location.href = "/login";
         }}
       />
-
+      <Navbar open={drawerOpen} setOpen={setDrawerOpen} />
       <Box
         sx={{
           p: { xs: 2, sm: 3 },
           width: "100%",
-          maxWidth: "1200px",
           mx: "auto",
         }}
       >
-        <Box mb={3}>
-          <Typography variant="h4" fontWeight="bold" gutterBottom>
-            Management User
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Read, filter, and manage the users registered in the system.
-          </Typography>
-        </Box>
-
-        <Box display="flex" gap={2} flexWrap="wrap" mb={2}>
-          <TextField
-            label="Search user ..."
-            variant="outlined"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            sx={{ flex: 1, minWidth: 200 }}
-          />
+        <Box
+          sx={{
+            ml: `${300}px`, // espaço para não ficar atrás do Navbar
+            display: "flex",
+          }}
+        >
           <TextField
             select
             label="Filter by kind"
@@ -135,9 +127,6 @@ export default function UsersPage() {
           fullWidth
           maxWidth="sm"
         >
-          <DialogTitle>
-            {selectedUser ? "Editar Usuário" : "Novo Usuário"}
-          </DialogTitle>
           <DialogContent>
             <UserForm
               user={selectedUser || undefined}
@@ -145,6 +134,7 @@ export default function UsersPage() {
                 fetchUsers();
                 setOpenForm(false);
               }}
+              onCancel={() => setOpenForm(false)}
             />
           </DialogContent>
         </Dialog>
