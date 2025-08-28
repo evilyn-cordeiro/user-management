@@ -1,21 +1,9 @@
 import { useEffect, useState, useMemo } from "react";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  TextField,
-  MenuItem,
-  Typography,
-  DialogActions,
-  IconButton,
-} from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import { Box, Button, Dialog, DialogContent } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { userService } from "../../services/users.service";
 import UserForm from "../UserForm/userForm.page";
-import { Header, Navbar, UserTable } from "../../components";
+import { ConfirmationModal, Header, Navbar, UserTable } from "../../components";
 
 interface User {
   id: number;
@@ -29,9 +17,11 @@ export default function UsersPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [openForm, setOpenForm] = useState<boolean>(false);
-  const [search, setSearch] = useState<string>("");
-  const [filterType, setFilterType] = useState<string>("all");
+  const [filterType] = useState<string>("all");
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const [openConfirmDialog, setOpenConfirmDialog] = useState<boolean>(false);
+  const [userToDelete, setUserToDelete] = useState<number | null>(null);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -44,70 +34,74 @@ export default function UsersPage() {
     fetchUsers();
   }, []);
 
-  const handleDelete = async (id: number) => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
-      await userService.remove(id);
+  const handleDelete = (id: number) => {
+    setUserToDelete(id);
+    setOpenConfirmDialog(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (userToDelete !== null) {
+      await userService.remove(userToDelete);
       fetchUsers();
+      setOpenConfirmDialog(false);
+      setUserToDelete(null); // Limpa o estado após a deleção
     }
+  };
+
+  const handleCancelDelete = () => {
+    setOpenConfirmDialog(false);
+    setUserToDelete(null); // Limpa o estado se a ação for cancelada
   };
 
   const filteredUsers = useMemo(() => {
     return users.filter((user) => {
-      const matchesSearch =
-        user.name.toLowerCase().includes(search.toLowerCase()) ||
-        user.email.toLowerCase().includes(search.toLowerCase());
       const matchesType = filterType === "all" || user.type === filterType;
-      return matchesSearch && matchesType;
+      return matchesType;
     });
-  }, [users, search, filterType]);
+  }, [users, filterType]);
 
   const userName = "Admin";
 
+  const RemoveToken = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
+
   return (
-    <Box>
+    <Box
+      sx={{
+        ml: { xs: 0, md: "250px" },
+      }}
+    >
       <Header
         userName={userName}
         onLogout={() => {
-          localStorage.removeItem("token");
-          window.location.href = "/login";
+          RemoveToken();
         }}
       />
       <Navbar open={drawerOpen} setOpen={setDrawerOpen} />
       <Box
         sx={{
           p: { xs: 2, sm: 3 },
-          width: "100%",
           mx: "auto",
         }}
       >
         <Box
           sx={{
-            ml: `${300}px`, // espaço para não ficar atrás do Navbar
             display: "flex",
           }}
         >
-          <TextField
-            select
-            label="Filter by kind"
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
-            sx={{ minWidth: 180 }}
-          >
-            <MenuItem value="all">All</MenuItem>
-            <MenuItem value="admin">Admin</MenuItem>
-            <MenuItem value="user">User</MenuItem>
-          </TextField>
-
           <Button
             variant="contained"
             color="primary"
+            sx={{ borderRadius: "50px", background: "#233EAE" }}
             startIcon={<AddIcon />}
             onClick={() => {
               setSelectedUser(null);
               setOpenForm(true);
             }}
           >
-            New User
+            ADD NEW
           </Button>
         </Box>
 
@@ -139,6 +133,12 @@ export default function UsersPage() {
           </DialogContent>
         </Dialog>
       </Box>
+      <ConfirmationModal
+        open={openConfirmDialog}
+        message="Tem certeza que deseja deletar este usuário?"
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+      />
     </Box>
   );
 }

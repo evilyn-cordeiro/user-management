@@ -60,7 +60,6 @@ export default function Header({
         boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
-      {/* Left side: Menu button (mobile) + Title */}
       <Box display="flex" alignItems="center" gap={1}>
         {onOpenMenu && (
           <IconButton
@@ -83,7 +82,6 @@ export default function Header({
         </Typography>
       </Box>
 
-      {/* Right side: User avatar and menu */}
       <Box display="flex" alignItems="center" gap={1}>
         <IconButton onClick={handleMenuOpen} color="inherit">
           <Avatar

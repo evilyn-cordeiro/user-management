@@ -42,18 +42,39 @@ export default function UserTable({
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "name", headerName: "Name", width: 250 },
-    { field: "email", headerName: "Email", width: 300 },
-    { field: "type", headerName: "Kind", width: 150 },
+    {
+      field: "id",
+      headerName: "ID",
+      flex: 0.3,
+      minWidth: 70,
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      flex: 1,
+      minWidth: 150,
+    },
+    {
+      field: "email",
+      headerName: "Email",
+      flex: 1.5,
+      minWidth: 200,
+    },
+    {
+      field: "type",
+      headerName: "Kind",
+      flex: 0.8,
+      minWidth: 120,
+    },
     {
       field: "actions",
       headerName: "Actions",
-      width: 200,
+      flex: 1,
+      minWidth: 180,
       sortable: false,
       filterable: false,
       renderCell: (params: any) => (
-        <Box display="flex" gap={1} alignItems="center" justifyContent="center">
+        <Box display="flex" gap={1} alignItems="center">
           <Button
             onClick={() => onEdit(params.row)}
             startIcon={<EditIcon />}
@@ -93,9 +114,9 @@ export default function UserTable({
 
   if (isMobile) {
     return (
-      <Grid container spacing={2}>
+      <Grid container spacing={2} marginTop={3}>
         {users.map((user) => (
-          <Grid key={user.id}>
+          <Grid key={user.id} width={"100%"}>
             <Card>
               <CardHeader
                 avatar={<Avatar>{user.name.charAt(0).toUpperCase()}</Avatar>}
@@ -125,29 +146,38 @@ export default function UserTable({
   }
 
   return (
-    <Paper sx={{ height: 500, width: "100%", overflow: "auto" }}>
-      <DataGrid
-        rows={users}
-        columns={columns}
-        pageSizeOptions={[5, 10, 20]}
-        initialState={{
-          pagination: { paginationModel: { pageSize: 5, page: 0 } },
-        }}
-        disableRowSelectionOnClick
-        disableColumnMenu
-        disableColumnSelector
-        disableDensitySelector
+    <Box sx={{ mt: 2 }}>
+      <Paper
         sx={{
-          "& .MuiDataGrid-columnHeaders": {
-            background: "black",
-            fontWeight: "bold",
-            fontSize: "0.95rem",
-          },
-          "& .MuiDataGrid-row:hover": {
-            backgroundColor: "#f5f5f5",
-          },
+          height: 500,
+          width: "100%",
+          overflow: "auto",
         }}
-      />
-    </Paper>
+      >
+        <DataGrid
+          rows={users}
+          columns={columns}
+          pageSizeOptions={[5, 10, 20]}
+          initialState={{
+            pagination: { paginationModel: { pageSize: 5, page: 0 } },
+          }}
+          disableRowSelectionOnClick
+          disableColumnMenu
+          disableColumnSelector
+          disableDensitySelector
+          sx={{
+            "& .MuiDataGrid-columnHeaders": {
+              background: "black",
+              color: "#000000",
+              fontWeight: "bold",
+              fontSize: "0.95rem",
+            },
+            "& .MuiDataGrid-row:hover": {
+              backgroundColor: "#f5f5f5",
+            },
+          }}
+        />
+      </Paper>
+    </Box>
   );
 }

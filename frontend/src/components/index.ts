@@ -8,6 +8,7 @@ import UserTable from "./UserTable/userTable";
 import CustomPasswordTextField from "./Inputs/CustomPassword/customPassword";
 import PageToolbar from "./PageToolbar/pageToolbar";
 import Navbar from "./NavBar/navBar";
+import ConfirmationModal from "./ConfirmationModal/confirmationModal";
 
 export {
   CustomAlert,
@@ -20,4 +21,5 @@ export {
   CustomPasswordTextField,
   PageToolbar,
   Navbar,
+  ConfirmationModal
 };
