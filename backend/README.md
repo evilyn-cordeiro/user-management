@@ -28,14 +28,13 @@ Para rodar o servidor em modo de desenvolvimento com hot-reload, execute:
 Este projeto utiliza um banco de dados "fake" (ou simulado) para fins de desenvolvimento e teste. Isso significa que as operações de leitura, escrita e atualização de dados são simuladas em memória, sem a necessidade de uma conexão com um banco de dados real, como o *MongoDB* ou *PostgreSQL*.
 
 **Vantagens de Usar um Banco de Dados Fake**
-Agilidade no Desenvolvimento: Não é necessário configurar um ambiente de banco de dados real, como instalar, configurar e manter um servidor de banco de dados. Isso acelera o início do desenvolvimento e a colaboração entre a equipe.
-
+- Agilidade no Desenvolvimento
 - Isolamento e Testes
 - Portabilidade
 
 **Desvantagens e Limitações**
 - Não é para Produção
-- Comportamento Incompleto
+- Limitações nos relacionamentos entre as entidades
 - Risco de Surpresas
 
 Caso precise de um banco real recomendo a utilização do PostgreSQL e Prisma.

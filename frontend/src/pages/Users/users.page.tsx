@@ -45,13 +45,13 @@ export default function UsersPage() {
       await userService.remove(userToDelete);
       fetchUsers();
       setOpenConfirmDialog(false);
-      setUserToDelete(null); // Limpa o estado após a deleção
+      setUserToDelete(null);
     }
   };
 
   const handleCancelDelete = () => {
     setOpenConfirmDialog(false);
-    setUserToDelete(null); // Limpa o estado se a ação for cancelada
+    setUserToDelete(null);
   };
 
   const filteredUsers = useMemo(() => {
@@ -96,7 +96,7 @@ export default function UsersPage() {
             variant="contained"
             color="primary"
             sx={{ borderRadius: "50px", background: "#233EAE" }}
-            startIcon={<AddIcon />}
+            endIcon={<AddIcon />}
             onClick={() => {
               setSelectedUser(null);
               setOpenForm(true);
@@ -136,7 +136,7 @@ export default function UsersPage() {
       </Box>
       <ConfirmationModal
         open={openConfirmDialog}
-        message="Tem certeza que deseja deletar este usuário?"
+        message="Are you sure you want to delete this user?"
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
       />

@@ -1,6 +1,7 @@
 ## SGU - Frontend
 
-Este projeto foi criado com Create React App, uma ferramenta oficial para configurar aplicações React de forma rápida e eficiente.
+Este documento detalha as etapas necessárias para configurar, rodar e testar o projeto de frontend.
+
 
 ## Pré-requisitos
 Certifique-se de que você tem o Node.js e o npm (ou Yarn) instalados em sua máquina. Este projeto usa o TypeScript, então você precisará ter o compilador tsc e o ts-node-dev instalados.
