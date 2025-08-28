@@ -1,4 +1,6 @@
+
 # Sistema de Gerenciamento de Usuários
+
 
 Este projeto é uma aplicação full stack desenvolvida com React + TypeScript no frontend e Node.js no backend. Ele oferece um sistema completo de CRUD para usuários, incluindo autenticação segura com gerenciamento de sessões e controle de acesso.
 
@@ -22,6 +24,8 @@ Este projeto é uma aplicação full stack desenvolvida com React + TypeScript n
 - **Estilização**: estilo usado com base nos componentes e padrões do Material UI
 - **Lib de Componentes**: Material UI
 - **Ferramentas de Build**: vercel (Front-end)
+
+*⚠️Aviso: o deploy do back-end não foi feito. Para testar as funcionalidades descritas é necessário rodar  o projeto em uma máquina local seguindo as orientações específicas de cada pasta.*
 
 ## Padrão de Commits
 
