@@ -47,6 +47,7 @@ export default function Header({ userName, onLogout }: HeaderProps) {
       width="100%"
       py={2}
       px={{ xs: 2, sm: 3 }}
+      height={75}
       bgcolor="primary.main"
       color="white"
       flexWrap="wrap"

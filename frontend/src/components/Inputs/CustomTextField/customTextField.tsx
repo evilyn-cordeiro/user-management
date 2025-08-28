@@ -1,5 +1,13 @@
 import { TextField, TextFieldProps } from "@mui/material";
 
 export default function CustomTextField(props: TextFieldProps) {
-  return <TextField fullWidth margin="normal" {...props} size="medium" />;
+  return (
+    <TextField
+      {...props}
+      fullWidth
+      margin="normal"
+      size="medium"
+      autoComplete="false"
+    />
+  );
 }

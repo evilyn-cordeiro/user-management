@@ -15,5 +15,5 @@ export {
   Logo,
   Header,
   UserTable,
-  CustomPasswordTextField
+  CustomPasswordTextField,
 };
